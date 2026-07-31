@@ -64,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initProjects();
     initModal();
     initTypewriter();
+    initFaq();
 });
 
 function initProjects() {
@@ -217,6 +218,27 @@ function openModal(project) {
 
     overlay.hidden = false;
     document.body.style.overflow = 'hidden';
+}
+
+function initFaq() {
+    document.querySelectorAll('.faq-item').forEach(item => {
+        const q = item.querySelector('.faq-q');
+        const a = item.querySelector('.faq-a');
+        if (!q || !a) return;
+        q.addEventListener('click', () => {
+            const isOpen = q.getAttribute('aria-expanded') === 'true';
+            item.closest('.faq-list').querySelectorAll('.faq-item').forEach(other => {
+                const oq = other.querySelector('.faq-q');
+                const oa = other.querySelector('.faq-a');
+                if (oq) oq.setAttribute('aria-expanded', 'false');
+                if (oa) oa.style.maxHeight = '';
+            });
+            if (!isOpen) {
+                q.setAttribute('aria-expanded', 'true');
+                a.style.maxHeight = a.scrollHeight + 'px';
+            }
+        });
+    });
 }
 
 function initTypewriter() {
