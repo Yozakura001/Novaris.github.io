@@ -1083,81 +1083,6 @@ body.no-scroll {
 }
 
 /* ============================================================
-   CONTACT
-   ============================================================ */
-
-.contact-layout {
-    display: grid;
-    grid-template-columns: 1fr 1.4fr;
-    gap: 64px;
-    align-items: start;
-}
-
-.contact-info p {
-    color: var(--text-muted);
-    font-size: 1.02rem;
-    margin-bottom: 20px;
-}
-
-.contact-list {
-    list-style: none;
-    margin-top: 28px;
-}
-
-.contact-list li {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 0;
-    color: var(--text-muted);
-    font-size: 0.95rem;
-}
-
-.contact-list .dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--grad);
-    flex-shrink: 0;
-}
-
-.contact-form {
-    max-width: 640px;
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-}
-
-.contact-form input,
-.contact-form textarea {
-    width: 100%;
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    padding: 15px 18px;
-    border: 1px solid var(--line-strong);
-    border-radius: var(--radius-sm);
-    background: var(--surface);
-    color: var(--text);
-    margin-bottom: 16px;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.contact-form input::placeholder,
-.contact-form textarea::placeholder {
-    color: var(--text-faint);
-}
-
-.contact-form input:focus,
-.contact-form textarea:focus {
-    outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px var(--accent-glow);
-}
-
-/* ============================================================
    REVEAL ANIMATION
    ============================================================ */
 
@@ -1233,11 +1158,6 @@ body.no-scroll {
         grid-template-columns: 1fr;
     }
 
-    .contact-layout {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-
     .section {
         padding: 84px 0;
     }
@@ -1276,10 +1196,6 @@ body.no-scroll {
     .nav-links a {
         padding: 14px 16px;
         border-radius: var(--radius-sm);
-    }
-
-    .form-row {
-        grid-template-columns: 1fr;
     }
 }
 
