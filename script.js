@@ -197,13 +197,16 @@ function openModal(project) {
     document.getElementById('modal-desc').textContent = project.description;
 
     const versionsEl = document.getElementById('modal-versions');
-    versionsEl.innerHTML = project.versions.map(v => `
+    versionsEl.innerHTML = project.versions.map((v, i) => `
         <div class="version-item">
-            <div>
-                <div class="version-label">${v.label}</div>
-                ${v.meta ? `<div class="version-meta">${v.meta}</div>` : ''}
+            <div class="version-info">
+                <div class="version-label">${v.label}${v.meta ? ` <span class="version-badge">${v.meta}</span>` : ''}</div>
+                <div class="version-meta">${i === 0 ? 'Recommended release' : 'Previous release'}</div>
             </div>
-            <a href="${v.file}" class="btn btn-primary btn-sm version-download" download>Download</a>
+            <a href="${v.file}" class="btn btn-accent btn-sm version-download" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download
+            </a>
         </div>
     `).join('');
 
@@ -234,20 +237,20 @@ function initTypewriter() {
             el.textContent = current.slice(0, charIndex);
             if (charIndex === current.length) {
                 deleting = true;
-                setTimeout(tick, 1800);
+                setTimeout(tick, 2200);
                 return;
             }
-            setTimeout(tick, 75);
+            setTimeout(tick, 95);
         } else {
             charIndex--;
             el.textContent = current.slice(0, charIndex);
             if (charIndex === 0) {
                 deleting = false;
                 phraseIndex = (phraseIndex + 1) % phrases.length;
-                setTimeout(tick, 350);
+                setTimeout(tick, 500);
                 return;
             }
-            setTimeout(tick, 32);
+            setTimeout(tick, 55);
         }
     }
 
