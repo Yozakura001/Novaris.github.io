@@ -77,15 +77,20 @@ function initProjects() {
     const allTags = [...new Set(PROJECTS.flatMap(p => p.tags))].sort();
     let activeTag = '';
 
-    tagsFilter.innerHTML = allTags.map(tag =>
-        `<button class="tag-btn" data-tag="${tag}">${tag}</button>`
+    const pyramidWidths = allTags.map((_, i) => Math.round(100 - (i * 100) / (allTags.length + 2)));
+
+    tagsFilter.innerHTML = allTags.map((tag, i) =>
+        `<button class="tag-row" data-tag="${tag}" style="width:${pyramidWidths[i]}%">
+            <span class="tag-row-label">${tag}</span>
+            <span class="tag-row-line"></span>
+        </button>`
     ).join('');
 
     tagsFilter.addEventListener('click', e => {
-        const btn = e.target.closest('.tag-btn');
+        const btn = e.target.closest('.tag-row');
         if (!btn) return;
         activeTag = btn.dataset.tag === activeTag ? '' : btn.dataset.tag;
-        tagsFilter.querySelectorAll('.tag-btn').forEach(b =>
+        tagsFilter.querySelectorAll('.tag-row').forEach(b =>
             b.classList.toggle('active', b.dataset.tag === activeTag)
         );
         render();
