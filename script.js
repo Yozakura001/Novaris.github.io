@@ -203,7 +203,7 @@ function openModal(project) {
         <div class="version-item${available ? '' : ' version-disabled'}">
             <div class="version-info">
                 <div class="version-label">${v.label}${v.meta ? ` <span class="version-badge${available ? '' : ' version-badge-muted'}">${v.meta}</span>` : ''}</div>
-                <div class="version-meta">${available ? (first ? 'Recommended release' : 'Previous release') : 'This version is not available yet'}</div>
+                <div class="version-meta">${available ? (first ? 'Recommended release' : 'Previous release') : 'This version is not available anymore'}</div>
             </div>
             ${available ? `
             <a href="${v.file}" class="btn btn-accent btn-sm version-download" download>
