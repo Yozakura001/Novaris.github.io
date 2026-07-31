@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects — Novaris</title>
-    <meta name="description" content="Projects by Novaris — software, automation tools, and intelligent digital solutions.">
+    <meta name="description" content="Projects by Novaris — software, automation tools, and intelligent digital solutions. Free public downloads.">
     <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=3">
+    <link rel="stylesheet" href="styles.css?v=4">
 </head>
 <body>
 
@@ -27,7 +27,6 @@
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="projects.html">Projects</a></li>
-                <li><a href="downloads.html">Downloads</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
@@ -40,40 +39,24 @@
                 <p class="section-label">Projects</p>
                 <h1 class="page-title">What we build</h1>
                 <p class="section-intro">
-                    A growing collection of tools and software, designed with precision
-                    and maintained with care.
+                    Free and public downloads. Search, filter by tag, and download
+                    the latest versions.
                 </p>
             </div>
         </section>
 
         <section class="section page-content">
             <div class="container">
-                <div class="grid">
-                    <article class="card">
-                        <h3 class="card-title">Novaris PVP Bot</h3>
-                        <p class="card-text">
-                            An advanced Minecraft PVP bot with autonomous progression,
-                            tactical combat, and swarm coordination.
-                        </p>
-                        <a href="downloads.html" class="card-link">View downloads →</a>
-                    </article>
-                    <article class="card">
-                        <h3 class="card-title">Automation Tools</h3>
-                        <p class="card-text">
-                            Reliable scripts and utilities that save time and simplify
-                            everyday tasks.
-                        </p>
-                        <span class="card-note">Coming soon</span>
-                    </article>
-                    <article class="card">
-                        <h3 class="card-title">Digital Solutions</h3>
-                        <p class="card-text">
-                            Intelligent software built to solve real-world problems
-                            with a software-first approach.
-                        </p>
-                        <span class="card-note">Coming soon</span>
-                    </article>
+
+                <div class="filters">
+                    <input type="text" id="search" class="search-input" placeholder="Search projects..." autocomplete="off">
+                    <div class="tags-filter" id="tags-filter"></div>
                 </div>
+
+                <div class="projects-grid" id="projects-grid">
+                    <p class="empty-state" id="empty-state" hidden>No projects match your search.</p>
+                </div>
+
             </div>
         </section>
 
@@ -89,6 +72,16 @@
             <p class="footer-copy">© <span id="year"></span> Novaris. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- ============ DOWNLOAD MODAL ============ -->
+    <div class="modal-overlay" id="modal-overlay" hidden>
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <button class="modal-close" id="modal-close" aria-label="Close">×</button>
+            <h3 class="modal-title" id="modal-title"></h3>
+            <p class="modal-desc" id="modal-desc"></p>
+            <div class="modal-versions" id="modal-versions"></div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
