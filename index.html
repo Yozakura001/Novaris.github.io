@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novaris — Building the future.</title>
+    <meta name="description" content="Novaris is a modern technology project building high-quality software, automation tools, and intelligent digital solutions.">
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <nav class="nav container">
+            <a href="#home" class="nav-logo">
+                <img src="assets/logo.png" alt="Novaris logo">
+                <span>Novaris</span>
+            </a>
+            <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#downloads">Downloads</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- ============ HOME ============ -->
+        <section id="home" class="hero">
+            <div class="container hero-inner">
+                <div class="hero-banner">
+                    <img src="assets/banner.png" alt="Novaris banner">
+                </div>
+                <h1 class="hero-title">Building the future.</h1>
+                <p class="hero-subtitle">
+                    Novaris develops high-quality software, automation tools, and intelligent
+                    digital solutions. Thoughtful engineering, built to last.
+                </p>
+                <div class="hero-actions">
+                    <a href="#projects" class="btn btn-primary">Explore projects</a>
+                    <a href="#downloads" class="btn btn-outline">Downloads</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ PROJECTS ============ -->
+        <section id="projects" class="section">
+            <div class="container">
+                <p class="section-label">Projects</p>
+                <h2 class="section-title">What we build</h2>
+                <p class="section-intro">
+                    A growing collection of tools and software, designed with precision
+                    and maintained with care.
+                </p>
+                <div class="grid">
+                    <article class="card">
+                        <h3 class="card-title">Novaris PVP Bot</h3>
+                        <p class="card-text">
+                            An advanced Minecraft PVP bot with autonomous progression,
+                            tactical combat, and swarm coordination.
+                        </p>
+                        <a href="#downloads" class="card-link">View downloads →</a>
+                    </article>
+                    <article class="card">
+                        <h3 class="card-title">Automation Tools</h3>
+                        <p class="card-text">
+                            Reliable scripts and utilities that save time and simplify
+                            everyday tasks.
+                        </p>
+                        <span class="card-note">Coming soon</span>
+                    </article>
+                    <article class="card">
+                        <h3 class="card-title">Digital Solutions</h3>
+                        <p class="card-text">
+                            Intelligent software built to solve real-world problems
+                            with a software-first approach.
+                        </p>
+                        <span class="card-note">Coming soon</span>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ DOWNLOADS ============ -->
+        <section id="downloads" class="section section-alt">
+            <div class="container">
+                <p class="section-label">Downloads</p>
+                <h2 class="section-title">Get Novaris software</h2>
+                <p class="section-intro">
+                    Download the latest releases. Each build is compiled, protected,
+                    and ready to use.
+                </p>
+                <div class="grid">
+                    <article class="card card-download">
+                        <div class="download-info">
+                            <h3 class="card-title">Novaris PVP Bot</h3>
+                            <p class="card-text">Latest version: v3.5.0</p>
+                        </div>
+                        <a href="#contact" class="btn btn-primary btn-sm">Request access</a>
+                    </article>
+                    <article class="card card-download">
+                        <div class="download-info">
+                            <h3 class="card-title">More tools</h3>
+                            <p class="card-text">Additional releases are on the way.</p>
+                        </div>
+                        <span class="card-note">Soon</span>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ ABOUT ============ -->
+        <section id="about" class="section">
+            <div class="container about-inner">
+                <p class="section-label">About</p>
+                <h2 class="section-title">A software-first brand</h2>
+                <p class="section-intro">
+                    Novaris is a technology project focused on building high-quality software,
+                    automation tools, and intelligent digital solutions. Some products
+                    incorporate artificial intelligence, but Novaris is not an "AI company" —
+                    it is a software-first brand where AI is simply one of many technologies
+                    used to solve real-world problems.
+                </p>
+                <div class="values">
+                    <div class="value"><span>Simplicity</span></div>
+                    <div class="value"><span>Innovation</span></div>
+                    <div class="value"><span>Reliability</span></div>
+                    <div class="value"><span>Quality</span></div>
+                    <div class="value"><span>Accessibility</span></div>
+                    <div class="value"><span>Improvement</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ CONTACT ============ -->
+        <section id="contact" class="section section-alt">
+            <div class="container">
+                <p class="section-label">Contact</p>
+                <h2 class="section-title">Get in touch</h2>
+                <p class="section-intro">
+                    Questions, feedback, or collaboration — we are always open to a good conversation.
+                </p>
+                <form class="contact-form" action="#" method="post">
+                    <div class="form-row">
+                        <input type="text" name="name" placeholder="Your name" required>
+                        <input type="email" name="email" placeholder="Your email" required>
+                    </div>
+                    <textarea name="message" rows="5" placeholder="Your message" required></textarea>
+                    <button type="submit" class="btn btn-primary">Send message</button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <img src="assets/logo.png" alt="Novaris logo">
+                <span>Novaris</span>
+            </div>
+            <p class="footer-tag">Building the future.</p>
+            <p class="footer-copy">© <span id="year"></span> Novaris. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
