@@ -64,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initProjects();
     initModal();
+    initTypewriter();
 });
 
 function initProjects() {
@@ -72,28 +73,59 @@ function initProjects() {
 
     const search = document.getElementById('search');
     const tagsFilter = document.getElementById('tags-filter');
+    const tagsBtn = document.getElementById('tags-btn');
+    const tagsMenu = document.getElementById('tags-menu');
+    const tagsOptions = document.getElementById('tags-options');
+    const tagsCount = document.getElementById('tags-count');
     const empty = document.getElementById('empty-state');
 
     const allTags = [...new Set(PROJECTS.flatMap(p => p.tags))].sort();
-    let activeTag = '';
+    const activeTags = new Set();
 
-    const pyramidWidths = allTags.map((_, i) => Math.round(100 - (i * 100) / (allTags.length + 2)));
-
-    tagsFilter.innerHTML = allTags.map((tag, i) =>
-        `<button class="tag-row" data-tag="${tag}" style="width:${pyramidWidths[i]}%">
-            <span class="tag-row-label">${tag}</span>
-            <span class="tag-row-line"></span>
+    tagsOptions.innerHTML = allTags.map(tag =>
+        `<button class="tag-option" data-tag="${tag}">
+            <span>${tag}</span>
+            <span class="tag-check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#0a0a0f" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
         </button>`
     ).join('');
 
-    tagsFilter.addEventListener('click', e => {
-        const btn = e.target.closest('.tag-row');
-        if (!btn) return;
-        activeTag = btn.dataset.tag === activeTag ? '' : btn.dataset.tag;
-        tagsFilter.querySelectorAll('.tag-row').forEach(b =>
-            b.classList.toggle('active', b.dataset.tag === activeTag)
+    function updateTagsUI() {
+        tagsOptions.querySelectorAll('.tag-option').forEach(opt =>
+            opt.classList.toggle('active', activeTags.has(opt.dataset.tag))
         );
+        const n = activeTags.size;
+        tagsCount.hidden = n === 0;
+        tagsCount.textContent = String(n);
+        tagsBtn.classList.toggle('active', tagsMenu.classList.contains('open'));
+    }
+
+    function toggleMenu(force) {
+        const isOpen = typeof force === 'boolean' ? force : !tagsMenu.classList.contains('open');
+        tagsMenu.classList.toggle('open', isOpen);
+        tagsMenu.hidden = !isOpen;
+        tagsBtn.setAttribute('aria-expanded', String(isOpen));
+        updateTagsUI();
+    }
+
+    tagsBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        toggleMenu();
+    });
+
+    tagsOptions.addEventListener('click', e => {
+        const opt = e.target.closest('.tag-option');
+        if (!opt) return;
+        const tag = opt.dataset.tag;
+        if (activeTags.has(tag)) activeTags.delete(tag);
+        else activeTags.add(tag);
+        updateTagsUI();
         render();
+    });
+
+    document.addEventListener('click', e => {
+        if (!tagsFilter.contains(e.target)) toggleMenu(false);
     });
 
     search.addEventListener('input', render);
@@ -101,7 +133,7 @@ function initProjects() {
     function render() {
         const q = search.value.trim().toLowerCase();
         const filtered = PROJECTS.filter(p => {
-            const matchesTag = !activeTag || p.tags.includes(activeTag);
+            const matchesTag = activeTags.size === 0 || [...activeTags].some(t => p.tags.includes(t));
             const matchesSearch = !q || p.name.toLowerCase().includes(q) || p.short.toLowerCase().includes(q) || p.tags.some(t => t.toLowerCase().includes(q));
             return matchesTag && matchesSearch;
         });
@@ -177,4 +209,47 @@ function openModal(project) {
 
     overlay.hidden = false;
     document.body.style.overflow = 'hidden';
+}
+
+function initTypewriter() {
+    const el = document.getElementById('typewriter');
+    if (!el) return;
+
+    const phrases = [
+        'Building the future...',
+        'Always evolving...',
+        'Creating intelligent systems...',
+        'Where ideas become reality...'
+    ];
+
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+
+    function tick() {
+        const current = phrases[phraseIndex];
+
+        if (!deleting) {
+            charIndex++;
+            el.textContent = current.slice(0, charIndex);
+            if (charIndex === current.length) {
+                deleting = true;
+                setTimeout(tick, 1800);
+                return;
+            }
+            setTimeout(tick, 75);
+        } else {
+            charIndex--;
+            el.textContent = current.slice(0, charIndex);
+            if (charIndex === 0) {
+                deleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                setTimeout(tick, 350);
+                return;
+            }
+            setTimeout(tick, 32);
+        }
+    }
+
+    setTimeout(tick, 400);
 }
