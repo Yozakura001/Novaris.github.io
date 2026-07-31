@@ -178,17 +178,100 @@ body {
     flex-wrap: wrap;
 }
 
-.hero-graphic {
+.hero-banner {
     flex: 1;
-    max-width: 420px;
-    aspect-ratio: 1;
-    position: relative;
+    max-width: 480px;
 }
 
-#sphere-canvas {
+.hero-banner img {
     width: 100%;
-    height: 100%;
+    height: auto;
     display: block;
+}
+
+/* ============ HOME BRIEF ============ */
+
+.home-brief {
+    text-align: center;
+}
+
+.home-brief .section-label,
+.home-brief .section-title,
+.home-brief .section-intro {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.home-brief .section-intro {
+    margin-bottom: 32px;
+}
+
+.home-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+}
+
+/* ============ INNER PAGES ============ */
+
+.page-head {
+    padding-bottom: 24px;
+}
+
+.page-head .section-intro {
+    margin-bottom: 0;
+}
+
+.page-content {
+    padding-top: 24px;
+}
+
+.page-title {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 16px;
+}
+
+.page-body {
+    max-width: 720px;
+}
+
+.page-body p {
+    color: var(--gray-500);
+    margin-bottom: 20px;
+    font-size: 1.05rem;
+}
+
+.page-h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 40px 0 12px;
+}
+
+.page-list {
+    margin: 0 0 20px 22px;
+    color: var(--gray-500);
+    font-size: 1.05rem;
+}
+
+.page-list li {
+    margin-bottom: 8px;
+}
+
+.page-outro {
+    font-weight: 500;
+    color: var(--white) !important;
+    margin-top: 32px;
+}
+
+.page-body .home-actions {
+    justify-content: flex-start;
+    margin-top: 32px;
 }
 
 /* ============ BUTTONS ============ */
@@ -441,16 +524,13 @@ body {
         max-width: 100%;
     }
 
-    .hero-logo {
+    .hero-actions,
+    .home-actions {
         justify-content: center;
     }
 
-    .hero-actions {
-        justify-content: center;
-    }
-
-    .hero-graphic {
-        max-width: 320px;
+    .hero-banner {
+        max-width: 420px;
     }
 }
 
