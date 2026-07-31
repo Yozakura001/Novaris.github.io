@@ -174,14 +174,55 @@ body {
 }
 
 .home-brief .section-label,
-.home-brief .section-title,
-.home-brief .section-intro {
+.home-brief .section-title {
     margin-left: auto;
     margin-right: auto;
 }
 
-.home-brief .section-intro {
-    margin-bottom: 32px;
+.about-body {
+    max-width: 720px;
+}
+
+.about-body p {
+    color: var(--gray-500);
+    margin-bottom: 20px;
+    font-size: 1.05rem;
+}
+
+.about-h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 40px 0 12px;
+}
+
+.about-list {
+    list-style: none;
+    margin: 0 0 20px;
+    color: var(--gray-500);
+    font-size: 1.05rem;
+    display: inline-block;
+    text-align: left;
+}
+
+.about-list li {
+    margin-bottom: 8px;
+}
+
+.about-list li::before {
+    content: "•";
+    color: var(--white);
+    margin-right: 10px;
+}
+
+.about-outro {
+    font-weight: 500;
+    color: var(--white) !important;
+    margin-top: 32px;
+}
+
+.home-brief .home-actions {
+    margin-top: 32px;
 }
 
 .home-actions {
