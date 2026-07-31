@@ -1050,6 +1050,31 @@ body.no-scroll {
     gap: 8px;
 }
 
+.version-item.version-disabled {
+    opacity: 0.55;
+}
+
+.version-item.version-disabled:hover {
+    border-color: var(--line);
+    transform: none;
+}
+
+.version-badge-muted {
+    background: var(--line-strong);
+    color: var(--text-muted);
+}
+
+.version-na {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--line-strong);
+    cursor: default;
+}
+
 .modal-note {
     margin-top: 20px;
     font-size: 0.8rem;

@@ -5,9 +5,8 @@ const PROJECTS = [
         tags: ['Minecraft', 'PVP', 'Automation'],
         description: 'An advanced Minecraft bot specialized in PVP combat, autonomous progression from wood to netherite, base defense, and multi-bot swarm coordination.',
         versions: [
-            { label: 'v3.5.0', meta: 'Latest', file: 'assets/downloads/pvpbot-v3.5.0.zip' },
-            { label: 'v3.0.0', meta: '', file: 'assets/downloads/pvpbot-v3.0.0.zip' },
-            { label: 'v2.0.0', meta: '', file: 'assets/downloads/pvpbot-v2.0.0.zip' }
+            { label: 'v2.0.0', meta: 'Latest', file: 'https://github.com/Yozakura001/Novaris.github.io/releases/download/v2.0.0/pvpbot-v2.0.0.zip', available: true },
+            { label: 'v1.0.0', meta: 'Not available', file: '', available: false }
         ]
     }
 ];
@@ -197,18 +196,24 @@ function openModal(project) {
     document.getElementById('modal-desc').textContent = project.description;
 
     const versionsEl = document.getElementById('modal-versions');
-    versionsEl.innerHTML = project.versions.map((v, i) => `
-        <div class="version-item">
+    versionsEl.innerHTML = project.versions.map((v, i) => {
+        const available = v.available !== false && v.file;
+        const first = i === 0;
+        return `
+        <div class="version-item${available ? '' : ' version-disabled'}">
             <div class="version-info">
-                <div class="version-label">${v.label}${v.meta ? ` <span class="version-badge">${v.meta}</span>` : ''}</div>
-                <div class="version-meta">${i === 0 ? 'Recommended release' : 'Previous release'}</div>
+                <div class="version-label">${v.label}${v.meta ? ` <span class="version-badge${available ? '' : ' version-badge-muted'}">${v.meta}</span>` : ''}</div>
+                <div class="version-meta">${available ? (first ? 'Recommended release' : 'Previous release') : 'This version is not available yet'}</div>
             </div>
+            ${available ? `
             <a href="${v.file}" class="btn btn-accent btn-sm version-download" download>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 Download
-            </a>
+            </a>` : `
+            <span class="btn btn-sm version-na" aria-disabled="true">Unavailable</span>`}
         </div>
-    `).join('');
+    `;
+    }).join('');
 
     overlay.hidden = false;
     document.body.style.overflow = 'hidden';
