@@ -8,10 +8,12 @@
     <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=5">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=6">
 </head>
 <body>
+
+    <div class="page-bg" aria-hidden="true"></div>
 
     <header class="site-header">
         <nav class="nav container">
@@ -29,6 +31,7 @@
                 <li><a href="projects.html">Projects</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
+            <a href="projects.html" class="nav-cta">View work</a>
         </nav>
     </header>
 
@@ -38,58 +41,119 @@
         <section class="hero">
             <div class="hero-banner">
                 <img src="assets/banner.png" alt="Novaris banner">
-            </div>
-            <div class="container hero-inner">
-                <div class="hero-brand">
-                    <h1 class="hero-title">Intelligent Systems</h1>
-                    <p class="hero-tagline">Building the future.</p>
-                    <div class="hero-actions">
+                <div class="hero-shade"></div>
+                <div class="hero-inner">
+                    <p class="hero-label reveal">Novaris — Intelligent Systems</p>
+                    <h1 class="hero-title reveal reveal-delay-1">
+                        Building the <span class="grad">future</span>
+                    </h1>
+                    <p class="hero-tagline reveal reveal-delay-2">
+                        Software, automation and intelligent digital experiences —
+                        designed with clarity and built to last.
+                    </p>
+                    <div class="hero-actions reveal reveal-delay-3">
                         <a href="projects.html" class="btn btn-primary">Explore projects</a>
-                        <a href="contact.html" class="btn btn-outline">Get in touch</a>                    </div>
+                        <a href="contact.html" class="btn btn-outline">Get in touch</a>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- ============ ABOUT ============ -->
-        <section class="section home-brief">
-            <div class="container about-body">
-                <p class="section-label">About Novaris</p>
-                <h2 class="section-title">A project built around technology</h2>
-                <p>
+        <!-- ============ STATEMENT ============ -->
+        <section class="section statement">
+            <div class="container">
+                <p class="section-label reveal">Who we are</p>
+                <p class="statement-text reveal reveal-delay-1">
+                    We turn ideas into practical technology — simple, powerful and
+                    <span class="grad">thoughtfully designed</span>.
+                </p>
+                <p class="statement-sub reveal reveal-delay-2">
                     Novaris is a technology project focused on creating intelligent software,
-                    innovative tools, and modern digital experiences.
+                    innovative tools and modern digital experiences for creators and developers.
                 </p>
-                <p>
-                    We explore new ideas in software development, automation, and artificial
-                    intelligence to build useful solutions for creators and developers.
-                </p>
+            </div>
+        </section>
 
-                <h3 class="about-h3">Our Vision</h3>
-                <p>
-                    To create simple, powerful, and accessible technology through innovation
-                    and thoughtful design.
-                </p>
+        <!-- ============ WHAT WE DO ============ -->
+        <section class="section section-alt">
+            <div class="container">
+                <p class="section-label reveal">What we create</p>
+                <h2 class="section-title reveal reveal-delay-1">Explored, built, shipped.</h2>
+                <div class="about-grid">
+                    <div class="about-block reveal reveal-delay-1">
+                        <p class="about-num">01</p>
+                        <h3>Intelligent systems</h3>
+                        <p>
+                            Artificial intelligence projects and autonomous software that
+                            learns, adapts and performs on its own.
+                        </p>
+                    </div>
+                    <div class="about-block reveal reveal-delay-2">
+                        <p class="about-num">02</p>
+                        <h3>Automation tools</h3>
+                        <p>
+                            Practical tools that remove repetitive work and keep complex
+                            processes running reliably.
+                        </p>
+                    </div>
+                    <div class="about-block reveal reveal-delay-3">
+                        <p class="about-num">03</p>
+                        <h3>Digital experiences</h3>
+                        <p>
+                            Modern interfaces and products that are simple, powerful and
+                            accessible to everyone.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                <h3 class="about-h3">What We Create</h3>
-                <ul class="about-list">
-                    <li>Artificial intelligence projects</li>
-                    <li>Software and automation tools</li>
-                    <li>Day-to-day problem solutions</li>
-                    <li>Experimental technology projects</li>
-                </ul>
+        <!-- ============ VISION & VALUES ============ -->
+        <section class="section">
+            <div class="container">
+                <p class="section-label reveal">Vision &amp; mission</p>
+                <h2 class="section-title reveal reveal-delay-1">Built on clear principles</h2>
+                <div class="about-grid">
+                    <div class="about-block reveal reveal-delay-1">
+                        <p class="about-num">Vision</p>
+                        <h3>Technology with purpose</h3>
+                        <p>
+                            To create simple, powerful and accessible technology through
+                            innovation and thoughtful design.
+                        </p>
+                    </div>
+                    <div class="about-block reveal reveal-delay-2">
+                        <p class="about-num">Mission</p>
+                        <h3>Ideas into reality</h3>
+                        <p>
+                            To turn ideas into practical technology and keep exploring the
+                            possibilities of modern software.
+                        </p>
+                    </div>
+                    <div class="about-block reveal reveal-delay-3">
+                        <p class="about-num">Focus</p>
+                        <ul class="about-list">
+                            <li>Artificial intelligence</li>
+                            <li>Software &amp; automation</li>
+                            <li>Practical problem solving</li>
+                            <li>Experimental projects</li>
+                        </ul>
+                    </div>
+                </div>
 
-                <h3 class="about-h3">Our Mission</h3>
-                <p>
-                    To turn ideas into practical technology and continue exploring the
-                    possibilities of modern software.
-                </p>
+                <div class="values reveal">
+                    <span class="value">Creativity</span>
+                    <span class="value">Innovation</span>
+                    <span class="value">Simplicity</span>
+                    <span class="value">Reliability</span>
+                </div>
 
-                <p class="about-outro">
-                    Novaris is a growing project built around creativity, innovation, and the
+                <p class="about-outro reveal">
+                    Novaris is a growing project built around creativity, innovation and the
                     future of technology.
                 </p>
 
-                <div class="home-actions">
+                <div class="home-actions reveal" style="display:flex; justify-content:center; gap:14px; margin-top:44px; flex-wrap:wrap;">
                     <a href="projects.html" class="btn btn-primary">See our projects</a>
                     <a href="contact.html" class="btn btn-outline">Get in touch</a>
                 </div>

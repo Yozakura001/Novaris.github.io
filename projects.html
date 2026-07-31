@@ -8,10 +8,12 @@
     <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=5">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=6">
 </head>
 <body>
+
+    <div class="page-bg" aria-hidden="true"></div>
 
     <header class="site-header">
         <nav class="nav container">
@@ -29,26 +31,27 @@
                 <li><a href="projects.html">Projects</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
+            <a href="projects.html" class="nav-cta">View work</a>
         </nav>
     </header>
 
-    <main class="page">
+    <main>
 
-        <section class="section page-head">
+        <section class="page-head">
             <div class="container">
-                <p class="section-label">Projects</p>
-                <h1 class="page-title">What we build</h1>
-                <p class="section-intro">
+                <p class="section-label reveal">Projects</p>
+                <h1 class="page-title reveal reveal-delay-1">What we build</h1>
+                <p class="section-intro reveal reveal-delay-2">
                     Free and public downloads. Search, filter by tag, and download
                     the latest versions.
                 </p>
             </div>
         </section>
 
-        <section class="section page-content">
+        <section class="section section-tight" style="padding-top:0;">
             <div class="container">
 
-                <div class="filters">
+                <div class="filters reveal">
                     <input type="text" id="search" class="search-input" placeholder="Search projects..." autocomplete="off">
                     <div class="tags-filter" id="tags-filter"></div>
                 </div>
