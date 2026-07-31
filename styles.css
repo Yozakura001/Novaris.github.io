@@ -36,6 +36,10 @@ body {
     padding: 0 24px;
 }
 
+[hidden] {
+    display: none !important;
+}
+
 /* ============ NAVIGATION ============ */
 
 .site-header {
