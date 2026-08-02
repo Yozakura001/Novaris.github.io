@@ -42,7 +42,7 @@ async function fetchCount(key) {
 
 async function bumpCount(key) {
     try {
-        const r = await fetch(`${COUNTER_API}/${key}/up`);
+        const r = await fetch(`${COUNTER_API}/${key}/up`, { keepalive: true });
         if (!r.ok) return null;
         const d = await r.json();
         COUNTS[key] = d.count;
@@ -213,7 +213,13 @@ function initProjects() {
         grid.querySelectorAll('.download-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const project = PROJECTS.find(p => p.name === btn.dataset.project);
-                if (project) openModal(project);
+                if (!project) return;
+                openModal(project);
+                bumpCount(project.counter).then(n => {
+                    if (n == null) return;
+                    const el = document.querySelector(`.project-card[data-project="${project.name}"] .downloads-count`);
+                    if (el) el.textContent = n;
+                });
             });
         });
     }
@@ -269,16 +275,6 @@ function openModal(project) {
         </div>
     `;
     }).join('');
-
-    versionsEl.querySelectorAll('.version-download').forEach(a => {
-        a.addEventListener('click', () => {
-            bumpCount(project.counter).then(n => {
-                if (n == null) return;
-                const el = document.querySelector(`.project-card[data-project="${project.name}"] .downloads-count`);
-                if (el) el.textContent = n;
-            });
-        });
-    });
 
     overlay.hidden = false;
     document.body.style.overflow = 'hidden';
