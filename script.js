@@ -146,7 +146,7 @@ function initProjects() {
             const matchesTag = activeTags.size === 0 || [...activeTags].some(t => p.tags.includes(t));
             const matchesSearch = !q || p.name.toLowerCase().includes(q) || p.short.toLowerCase().includes(q) || p.tags.some(t => t.toLowerCase().includes(q));
             return matchesTag && matchesSearch;
-        });
+        }).sort((a, b) => Number(!!a.discontinued) - Number(!!b.discontinued));
 
         empty.hidden = filtered.length > 0;
 
