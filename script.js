@@ -37,14 +37,15 @@ async function fetchCount(release, force) {
             headers: { 'Accept': 'application/vnd.github+json' },
             cache: 'no-store'
         });
-        if (!r.ok) return COUNTS[key] !== undefined ? COUNTS[key] : 0;
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
         const d = await r.json();
         const asset = (d.assets || []).find(a => a.name === release.asset);
-        const n = asset ? (asset.download_count || 0) : 0;
+        if (!asset) throw new Error('Asset no encontrado');
+        const n = asset.download_count || 0;
         COUNTS[key] = n;
         return n;
     } catch (e) {
-        return COUNTS[key] !== undefined ? COUNTS[key] : 0;
+        return COUNTS[key] !== undefined ? COUNTS[key] : null;
     }
 }
 
@@ -193,16 +194,25 @@ function initProjects() {
                 <div class="project-tags">
                     ${p.tags.map(t => `<span class="project-tag">${t}</span>`).join('')}
                 </div>
-                <p class="project-downloads">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    <span class="downloads-count">0</span> downloads
-                </p>
+                <div class="project-downloads-row">
+                    <p class="project-downloads">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        <span class="downloads-count">—</span> downloads
+                    </p>
+                    <button class="btn btn-ghost btn-xs refresh-count" data-project="${p.name}" title="Actualizar contador" aria-label="Actualizar contador">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                    </button>
+                </div>
                 <button class="btn btn-primary btn-sm download-btn" data-project="${p.name}">Download</button>
             `;
             grid.appendChild(card);
+            const countEl = card.querySelector('.downloads-count');
             fetchCount(p.release).then(n => {
-                const el = card.querySelector('.downloads-count');
-                if (el) el.textContent = n;
+                if (n !== null) {
+                    countEl.textContent = n;
+                } else {
+                    countEl.textContent = '—';
+                }
             });
         });
 
@@ -213,10 +223,29 @@ function initProjects() {
                 openModal(project);
                 setTimeout(() => {
                     fetchCount(project.release, true).then(n => {
-                        const el = document.querySelector(`.project-card[data-project="${project.name}"] .downloads-count`);
-                        if (el) el.textContent = n;
+                        if (n !== null) {
+                            const el = document.querySelector(`.project-card[data-project="${project.name}"] .downloads-count`);
+                            if (el) el.textContent = n;
+                        }
                     });
-                }, 8000);
+                }, 15000);
+            });
+        });
+
+        grid.querySelectorAll('.refresh-count').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const project = PROJECTS.find(p => p.name === btn.dataset.project);
+                if (!project) return;
+                const countEl = btn.closest('.project-card').querySelector('.downloads-count');
+                if (!countEl) return;
+                btn.classList.add('spinning');
+                fetchCount(project.release, true).then(n => {
+                    btn.classList.remove('spinning');
+                    if (n !== null) {
+                        countEl.textContent = n;
+                    }
+                });
             });
         });
     }
