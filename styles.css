@@ -821,6 +821,31 @@ body.no-scroll {
     opacity: 1;
 }
 
+.card-warning {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 18px solid #ffc400;
+    cursor: help;
+}
+
+.card-warning::after {
+    content: "!";
+    position: absolute;
+    left: -4px;
+    top: -13px;
+    width: 8px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #000;
+    text-align: center;
+    line-height: 1;
+}
+
 .project-title {
     font-family: var(--font-display);
     font-size: 1.2rem;

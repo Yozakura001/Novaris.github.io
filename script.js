@@ -13,6 +13,7 @@ const PROJECTS = [
         name: 'ARIA',
         short: 'Discontinued prototype of an autonomous voice agent (STT, LLM, TTS).',
         tags: ['AI', 'Voice', 'Prototype'],
+        discontinued: true,
         description: 'A discontinued prototype of an autonomous voice agent: voice activity detection, speech-to-text, a local LLM, voice-timbre conversation focus, and Kokoro text-to-speech in Spanish. Source code available on GitHub.',
         versions: [
             { label: 'Source code', meta: 'Discontinued', file: 'https://github.com/Yozakura001/ARIA', available: true }
@@ -154,7 +155,11 @@ function initProjects() {
         filtered.forEach(p => {
             const card = document.createElement('article');
             card.className = 'project-card';
+            const warn = p.discontinued
+                ? '<span class="card-warning" title="Discontinued" aria-label="Discontinued">!</span>'
+                : '';
             card.innerHTML = `
+                ${warn}
                 <h3 class="project-title">${p.name}</h3>
                 <p class="project-desc">${p.short}</p>
                 <div class="project-tags">
