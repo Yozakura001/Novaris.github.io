@@ -3,6 +3,7 @@ const PROJECTS = [
         name: 'Novaris PVP Bot',
         short: 'Advanced Minecraft PVP bot with autonomous progression and swarm coordination.',
         tags: ['Minecraft', 'PVP', 'Automation'],
+        counter: 'novaris-pvp-bot',
         description: 'An advanced Minecraft bot specialized in PVP combat, autonomous progression from wood to netherite, base defense, and multi-bot swarm coordination.',
         versions: [
             { label: 'v2.0.0', meta: 'Latest', file: 'https://github.com/Yozakura001/Novaris.github.io/releases/download/v2.0.0/pvpbot-v2.0.0.zip', available: true },
@@ -13,6 +14,7 @@ const PROJECTS = [
         name: 'ARIA',
         short: 'Discontinued prototype of an autonomous voice agent (STT, LLM, TTS).',
         tags: ['AI', 'Voice', 'Prototype'],
+        counter: 'aria',
         discontinued: true,
         description: 'A discontinued prototype of an autonomous voice agent: voice activity detection, speech-to-text, a local LLM, voice-timbre conversation focus, and Kokoro text-to-speech in Spanish. Source code available on GitHub.',
         versions: [
@@ -20,6 +22,35 @@ const PROJECTS = [
         ]
     }
 ];
+
+const COUNTER_NS = 'yozakura001';
+const COUNTER_API = `https://api.counterapi.dev/v1/${COUNTER_NS}`;
+const COUNTS = {};
+
+async function fetchCount(key) {
+    if (key in COUNTS) return COUNTS[key];
+    try {
+        const r = await fetch(`${COUNTER_API}/${key}/`);
+        if (!r.ok) return 0;
+        const d = await r.json();
+        COUNTS[key] = d.count || 0;
+        return COUNTS[key];
+    } catch (e) {
+        return 0;
+    }
+}
+
+async function bumpCount(key) {
+    try {
+        const r = await fetch(`${COUNTER_API}/${key}/up`);
+        if (!r.ok) return null;
+        const d = await r.json();
+        COUNTS[key] = d.count;
+        return d.count;
+    } catch (e) {
+        return null;
+    }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     const yearEl = document.getElementById('year');
@@ -155,6 +186,7 @@ function initProjects() {
         filtered.forEach(p => {
             const card = document.createElement('article');
             card.className = p.discontinued ? 'project-card project-discontinued' : 'project-card';
+            card.setAttribute('data-project', p.name);
             const warn = p.discontinued
                 ? '<span class="card-warning" title="Discontinued" aria-label="Discontinued">!</span>'
                 : '';
@@ -165,9 +197,17 @@ function initProjects() {
                 <div class="project-tags">
                     ${p.tags.map(t => `<span class="project-tag">${t}</span>`).join('')}
                 </div>
+                <p class="project-downloads">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span class="downloads-count">0</span> downloads
+                </p>
                 <button class="btn btn-primary btn-sm download-btn" data-project="${p.name}">Download</button>
             `;
             grid.appendChild(card);
+            fetchCount(p.counter).then(n => {
+                const el = card.querySelector('.downloads-count');
+                if (el) el.textContent = n;
+            });
         });
 
         grid.querySelectorAll('.download-btn').forEach(btn => {
@@ -229,6 +269,16 @@ function openModal(project) {
         </div>
     `;
     }).join('');
+
+    versionsEl.querySelectorAll('.version-download').forEach(a => {
+        a.addEventListener('click', () => {
+            bumpCount(project.counter).then(n => {
+                if (n == null) return;
+                const el = document.querySelector(`.project-card[data-project="${project.name}"] .downloads-count`);
+                if (el) el.textContent = n;
+            });
+        });
+    });
 
     overlay.hidden = false;
     document.body.style.overflow = 'hidden';

@@ -861,6 +861,27 @@ body.no-scroll {
     flex: 1;
 }
 
+.project-downloads {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    font-weight: 500;
+}
+
+.project-downloads svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    opacity: 0.7;
+}
+
+.downloads-count {
+    color: var(--text);
+    font-weight: 600;
+}
+
 .project-tags {
     display: flex;
     flex-wrap: wrap;
