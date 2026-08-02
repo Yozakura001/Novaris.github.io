@@ -32,20 +32,25 @@ function countKey(release) {
 async function fetchCount(release, force) {
     const key = countKey(release);
     if (!force && COUNTS[key] !== undefined) return COUNTS[key];
-    try {
-        const r = await fetch(`https://api.github.com/repos/${release.owner}/${release.repo}/releases/tags/${release.tag}`, {
-            headers: { 'Accept': 'application/vnd.github+json' },
-            cache: 'no-store'
-        });
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        const d = await r.json();
-        const asset = (d.assets || []).find(a => a.name === release.asset);
-        if (!asset) throw new Error('Asset no encontrado');
-        const n = asset.download_count || 0;
-        COUNTS[key] = n;
-        return n;
-    } catch (e) {
-        return COUNTS[key] !== undefined ? COUNTS[key] : null;
+    for (let attempt = 0; attempt < 2; attempt++) {
+        try {
+            const r = await fetch(`https://api.github.com/repos/${release.owner}/${release.repo}/releases/tags/${release.tag}`, {
+                headers: { 'Accept': 'application/vnd.github+json' },
+                cache: 'no-store'
+            });
+            if (!r.ok) throw new Error(`HTTP ${r.status}`);
+            const d = await r.json();
+            const asset = (d.assets || []).find(a => a.name === release.asset);
+            if (!asset) throw new Error('Asset no encontrado');
+            const n = asset.download_count || 0;
+            COUNTS[key] = n;
+            return n;
+        } catch (e) {
+            if (attempt === 1) {
+                return COUNTS[key] !== undefined ? COUNTS[key] : null;
+            }
+            await new Promise(r => setTimeout(r, 500));
+        }
     }
 }
 
