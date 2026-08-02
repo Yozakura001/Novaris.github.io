@@ -154,7 +154,7 @@ function initProjects() {
 
         filtered.forEach(p => {
             const card = document.createElement('article');
-            card.className = 'project-card';
+            card.className = p.discontinued ? 'project-card project-discontinued' : 'project-card';
             const warn = p.discontinued
                 ? '<span class="card-warning" title="Discontinued" aria-label="Discontinued">!</span>'
                 : '';
