@@ -3,7 +3,7 @@ const PROJECTS = [
         name: 'Novaris PVP Bot',
         short: 'Advanced Minecraft PVP bot with autonomous progression and swarm coordination.',
         tags: ['Minecraft', 'PVP', 'Automation'],
-        counter: 'novaris-pvp-bot',
+        release: { owner: 'Yozakura001', repo: 'Novaris.github.io', tag: 'v2.0.0', asset: 'pvpbot-v2.0.0.zip' },
         description: 'An advanced Minecraft bot specialized in PVP combat, autonomous progression from wood to netherite, base defense, and multi-bot swarm coordination.',
         versions: [
             { label: 'v2.0.0', meta: 'Latest', file: 'https://github.com/Yozakura001/Novaris.github.io/releases/download/v2.0.0/pvpbot-v2.0.0.zip', available: true },
@@ -14,41 +14,37 @@ const PROJECTS = [
         name: 'ARIA',
         short: 'Discontinued prototype of an autonomous voice agent (STT, LLM, TTS).',
         tags: ['AI', 'Voice', 'Prototype'],
-        counter: 'aria',
+        release: { owner: 'Yozakura001', repo: 'ARIA', tag: 'v0.1.0', asset: 'aria-source-v0.1.0.zip' },
         discontinued: true,
         description: 'A discontinued prototype of an autonomous voice agent: voice activity detection, speech-to-text, a local LLM, voice-timbre conversation focus, and Kokoro text-to-speech in Spanish. Source code available on GitHub.',
         versions: [
-            { label: 'Source code', meta: 'Discontinued', file: 'https://github.com/Yozakura001/ARIA', available: true }
+            { label: 'Source code', meta: 'Discontinued', file: 'https://github.com/Yozakura001/ARIA/releases/download/v0.1.0/aria-source-v0.1.0.zip', available: true }
         ]
     }
 ];
 
-const COUNTER_NS = 'yozakura001';
-const COUNTER_API = `https://api.counterapi.dev/v1/${COUNTER_NS}`;
 const COUNTS = {};
 
-async function fetchCount(key) {
-    if (key in COUNTS) return COUNTS[key];
-    try {
-        const r = await fetch(`${COUNTER_API}/${key}/`, { cache: 'no-store' });
-        if (!r.ok) return 0;
-        const d = await r.json();
-        COUNTS[key] = d.count || 0;
-        return COUNTS[key];
-    } catch (e) {
-        return 0;
-    }
+function countKey(release) {
+    return `${release.owner}/${release.repo}/${release.tag}/${release.asset}`;
 }
 
-async function bumpCount(key) {
+async function fetchCount(release, force) {
+    const key = countKey(release);
+    if (!force && COUNTS[key] !== undefined) return COUNTS[key];
     try {
-        const r = await fetch(`${COUNTER_API}/${key}/up`, { keepalive: true, cache: 'no-store' });
-        if (!r.ok) return null;
+        const r = await fetch(`https://api.github.com/repos/${release.owner}/${release.repo}/releases/tags/${release.tag}`, {
+            headers: { 'Accept': 'application/vnd.github+json' },
+            cache: 'no-store'
+        });
+        if (!r.ok) return COUNTS[key] !== undefined ? COUNTS[key] : 0;
         const d = await r.json();
-        COUNTS[key] = d.count;
-        return d.count;
+        const asset = (d.assets || []).find(a => a.name === release.asset);
+        const n = asset ? (asset.download_count || 0) : 0;
+        COUNTS[key] = n;
+        return n;
     } catch (e) {
-        return null;
+        return COUNTS[key] !== undefined ? COUNTS[key] : 0;
     }
 }
 
@@ -204,7 +200,7 @@ function initProjects() {
                 <button class="btn btn-primary btn-sm download-btn" data-project="${p.name}">Download</button>
             `;
             grid.appendChild(card);
-            fetchCount(p.counter).then(n => {
+            fetchCount(p.release).then(n => {
                 const el = card.querySelector('.downloads-count');
                 if (el) el.textContent = n;
             });
@@ -215,11 +211,12 @@ function initProjects() {
                 const project = PROJECTS.find(p => p.name === btn.dataset.project);
                 if (!project) return;
                 openModal(project);
-                bumpCount(project.counter).then(n => {
-                    if (n == null) return;
-                    const el = document.querySelector(`.project-card[data-project="${project.name}"] .downloads-count`);
-                    if (el) el.textContent = n;
-                });
+                setTimeout(() => {
+                    fetchCount(project.release, true).then(n => {
+                        const el = document.querySelector(`.project-card[data-project="${project.name}"] .downloads-count`);
+                        if (el) el.textContent = n;
+                    });
+                }, 8000);
             });
         });
     }
