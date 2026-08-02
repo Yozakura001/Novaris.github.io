@@ -30,7 +30,7 @@ const COUNTS = {};
 async function fetchCount(key) {
     if (key in COUNTS) return COUNTS[key];
     try {
-        const r = await fetch(`${COUNTER_API}/${key}/`);
+        const r = await fetch(`${COUNTER_API}/${key}/`, { cache: 'no-store' });
         if (!r.ok) return 0;
         const d = await r.json();
         COUNTS[key] = d.count || 0;
@@ -42,7 +42,7 @@ async function fetchCount(key) {
 
 async function bumpCount(key) {
     try {
-        const r = await fetch(`${COUNTER_API}/${key}/up`, { keepalive: true });
+        const r = await fetch(`${COUNTER_API}/${key}/up`, { keepalive: true, cache: 'no-store' });
         if (!r.ok) return null;
         const d = await r.json();
         COUNTS[key] = d.count;
