@@ -8,6 +8,15 @@ const PROJECTS = [
             { label: 'v2.0.0', meta: 'Latest', file: 'https://github.com/Yozakura001/Novaris.github.io/releases/download/v2.0.0/pvpbot-v2.0.0.zip', available: true },
             { label: 'v1.0.0', meta: 'Not available', file: '', available: false }
         ]
+    },
+    {
+        name: 'ARIA',
+        short: 'Discontinued prototype of an autonomous voice agent (STT, LLM, TTS).',
+        tags: ['AI', 'Voice', 'Prototype'],
+        description: 'A discontinued prototype of an autonomous voice agent: voice activity detection, speech-to-text, a local LLM, voice-timbre conversation focus, and Kokoro text-to-speech in Spanish. Source code available on GitHub.',
+        versions: [
+            { label: 'Source code', meta: 'Discontinued', file: 'https://github.com/Yozakura001/ARIA', available: true }
+        ]
     }
 ];
 
