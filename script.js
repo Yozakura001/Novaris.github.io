@@ -20,6 +20,16 @@ const PROJECTS = [
         versions: [
             { label: 'Source code', meta: 'Discontinued', file: 'https://github.com/Yozakura001/ARIA/releases/download/v0.1.0/aria-source-v0.1.0.zip', available: true }
         ]
+    },
+    {
+        name: 'Novaris Video Studio',
+        short: 'AI video studio: auto scripts, TTS voice, images, music, rendering and YouTube upload. Free edition.',
+        tags: ['AI', 'Video', 'YouTube', 'Automation'],
+        release: { owner: 'Yozakura001', repo: 'Novaris.github.io', tag: 'v1.0.0-free', asset: 'Novaris-Video-Studio-Free-1.0.0-portable.exe' },
+        description: 'Professional AI video generation: automatic scripts, voice narration (TTS), image research, music, video rendering and direct YouTube upload. The free edition is limited to 1 video of up to 1 minute per day.',
+        versions: [
+            { label: 'v1.0.0-free', meta: 'Latest', file: 'https://github.com/Yozakura001/Novaris.github.io/releases/download/v1.0.0-free/Novaris-Video-Studio-Free-1.0.0-portable.exe', available: true }
+        ]
     }
 ];
 
@@ -374,3 +384,4 @@ function initTypewriter() {
 
     setTimeout(tick, 400);
 }
+
